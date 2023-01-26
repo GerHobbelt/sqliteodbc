@@ -662,13 +662,13 @@ int RunUnInstaller( const struct RunningOptionData_Struct *pRunData )
 
 	// Get needed Pathes:
 	// Systempath
-	GetSystemDirectory( SystemPath, 1024 );
+	GetSystemDirectoryA( SystemPath, 1024 );
 	SystemPath[1024-1] = 0;
 	// Workpath
 	_getcwd( WorkPath, 1024 );
 	WorkPath[1024-1] = 0;
 	// Temppath
-	GetTempPath( 1024, TempPath );
+	GetTempPathA( 1024, TempPath );
 	TempPath[1024-1] = 0;
 
 	// Install uninstall all drivers
@@ -697,7 +697,7 @@ int RunUnInstaller( const struct RunningOptionData_Struct *pRunData )
 				}
 
 				// Try to load the DLL
-				hDll = LoadLibrary( SourceFile );
+				hDll = LoadLibraryA( SourceFile );
 				if ( !hDll )
 				{
 					_snprintf( g_ErrorMessage, SQLINST_MAX_ERROR_BUFFER, "Could not open DLL: %s\n", SourceFile );
@@ -748,8 +748,8 @@ int RunUnInstaller( const struct RunningOptionData_Struct *pRunData )
 				DestFile[2048-1] = 0;
 
 				// Delete maybe old file before copy
-				DeleteFile( DestFile );
-				if ( !CopyFile( SourceFile, DestFile, FALSE ) )
+				DeleteFileA( DestFile );
+				if ( !CopyFileA( SourceFile, DestFile, FALSE ) )
 				{
 					// Could not copy File
 					_snprintf( g_ErrorMessage, SQLINST_MAX_ERROR_BUFFER, "Error: Could not copy %s to temppath!\n", SourceFile );
@@ -759,7 +759,7 @@ int RunUnInstaller( const struct RunningOptionData_Struct *pRunData )
 				}
 
 				// Try to load the DLL
-				hDll = LoadLibrary( DestFile );
+				hDll = LoadLibraryA( DestFile );
 				if ( !hDll )
 				{
 					// Use the SourceFile path (user should know what source dll is incompatibel)
@@ -793,7 +793,7 @@ int RunUnInstaller( const struct RunningOptionData_Struct *pRunData )
 
 				// Cleaning...
 				FreeLibrary(hDll);
-				DeleteFile( DestFile );
+				DeleteFileA( DestFile );
 			break;
 
 			default:
@@ -816,7 +816,7 @@ void MessageToUser( const char *pMessage )
 {
 	if ( g_ShowErrorInWindowsMessageBoxes )
 	{
-	    MessageBox( NULL, pMessage, "Message", MB_ICONSTOP|MB_OK|MB_TASKMODAL|MB_SETFOREGROUND );
+	    MessageBoxA( NULL, pMessage, "Message", MB_ICONSTOP|MB_OK|MB_TASKMODAL|MB_SETFOREGROUND );
 	}
 	else
 	{
