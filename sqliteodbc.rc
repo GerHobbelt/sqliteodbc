@@ -1,5 +1,10 @@
-#include <winresrc.h>
+
+//#define WIN32_LEAN_AND_MEAN
+#define APSTUDIO_READONLY_SYMBOLS
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include <windows.h>
 #include <winver.h>
+
 #include "resource.h"
 #include "sqlite.h"
 
